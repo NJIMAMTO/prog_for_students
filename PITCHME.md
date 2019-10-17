@@ -1,4 +1,8 @@
-## MinecraftをPythonで<br>動かす準備
+## MinecraftをPythonで<br>動かすための準備
 必要なもの(インストールするもの)
 * Python(最新版)
 * raspberry Jam Mod
+
+---
+
+### Pythonのインストール方法
