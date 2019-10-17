@@ -3,7 +3,7 @@
 * Python(最新版)
 * MDKではないForge
 * raspberry Jam Mod
-
+順番に入れていきます
 ---
 
 ### Pythonのインストール方法
