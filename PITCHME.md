@@ -1,6 +1,7 @@
 ## MinecraftをPythonで<br>動かすための準備
 必要なもの(インストールするもの)
 * Python(最新版)
+* MDKではないForge
 * raspberry Jam Mod
 
 ---
@@ -12,7 +13,10 @@
   * Setup was successfulが出てきたらCloseをクリックして終了
 
 ---
+### MDKではないForgeのインストール方法
+前回導入したForgeは自分でプログラミングして開発するためのバージョン
 
+なので普通に遊ぶためのForgeを別途インストールします
 ### Raspberry Jam Modの<br>インストール方法
 
 
