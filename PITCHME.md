@@ -7,6 +7,7 @@
 
 ### Pythonのインストール方法
 * [ここをクリックするとインストローラが起動](https://www.python.org/ftp/python/3.8.0/python-3.8.0-amd64-webinstall.exe)<br>↑Pythonがインストールされます
+
   * 出てきた画面の下側 *Add Python 3.8 to PATH* のチェックを入れて *Install Now* をクリックする
   * Setup was successfulが出てきたらCloseをクリックして終了
 
