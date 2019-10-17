@@ -13,10 +13,16 @@
   * Setup was successfulが出てきたらCloseをクリックして終了
 
 ---
-### MDKではないForgeのインストール方法
-前回導入したForgeは自分でプログラミングして開発するためのバージョン
 
-なので普通に遊ぶためのForgeを別途インストールします
+### MDKではないForgeの<br>インストール方法
+前回導入したForgeはJavaでプログラミングして開発するためのバージョンなので普通のForgeを別途インストールします
+* [ここをクリックするとインストローラが起動](http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.7.10-10.13.4.1558-1.7.10/forge-1.7.10-10.13.4.1558-1.7.10-installer-win.exe)<br>↑Forge1.7.10がインストールされます
+
+  * OKをクリックしてインストール→Completeが出てきたらウィンドウを閉じる
+
+
+---
+
 ### Raspberry Jam Modの<br>インストール方法
 
 
