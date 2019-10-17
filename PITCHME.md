@@ -11,4 +11,6 @@
   * 出てきた画面の下側 *Add Python 3.8 to PATH* のチェックを入れて *Install Now* をクリックする
   * Setup was successfulが出てきたらCloseをクリックして終了
 
+### raspberry Jam Modのインストール方法
+
 
