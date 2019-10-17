@@ -6,3 +6,6 @@
 ---
 
 ### Pythonのインストール方法
+[Python3のインストール](https://www.python.jp/install/windows/install_py3.html)
+
+に従って
