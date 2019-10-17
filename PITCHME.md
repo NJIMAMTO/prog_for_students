@@ -6,4 +6,7 @@
 ---
 
 ### Pythonのインストール方法
-* [Python3のインストール](https://www.python.jp/install/windows/install_py3.html)に従って
+* [ここをクリックするとインストローラが起動](https://www.python.org/ftp/python/3.8.0/python-3.8.0-amd64-webinstall.exe)←Pythonがインストールされます
+  * 出てきた画面の下側 **Add Python 3.8 to PATH** のチェックを入れてInstall Nowをクリックする
+
+
