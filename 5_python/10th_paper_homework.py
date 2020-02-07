@@ -6,10 +6,9 @@ from mcpi.block import *
 
 import time
 
-mc = Minecraft.create() #Minecraftとの接続を作成
 
-def decision(x,y,z):
-    global mc
+
+def decision(mc,x,y,z):
     if (14 == mc.getBlock(x,y,z) or
         15 == mc.getBlock(x,y,z) or
         16 == mc.getBlock(x,y,z) or
@@ -18,6 +17,13 @@ def decision(x,y,z):
     else:
         return True
 
+def mining(mc,x,y,z):
+    if decision(mc,x,y,z):
+        mc.setBlock(x,y,z,0)
+    if decision(mc,x,y + 1,z):
+        mc.setBlock(x,y + 1,z,0)
+
+mc = Minecraft.create() #Minecraftとの接続を作成
 pos = mc.player.getTilePos() #自分のいる位置を取得
 
 #最初の風車を作成
@@ -27,29 +33,19 @@ now_posZ = pos.z
 
 for i in range(4):
     now_posX+=1
-    if decision(now_posX,now_posY,now_posZ):
-        mc.setBlock(now_posX,now_posY,now_posZ,0)
-    if decision(now_posX,now_posY + 1,now_posZ):
-        mc.setBlock(now_posX,now_posY + 1,now_posZ,0)
+    mining(mc,now_posX,now_posY,now_posZ)
     
-
 for i in range(4):
     now_posZ+=1
-    if decision(now_posX,now_posY,now_posZ):
-        mc.setBlock(now_posX,now_posY,now_posZ,0)
-    if decision(now_posX,now_posY + 1,now_posZ):
-        mc.setBlock(now_posX,now_posY + 1,now_posZ,0)
+    mining(mc,now_posX,now_posY,now_posZ)
     
-
 now_posZ-=4
 mc.setBlock(now_posX,now_posY,now_posZ,50)
 
 for i in range(4):
     now_posZ-=1
-    if decision(now_posX,now_posY,now_posZ):
-        mc.setBlock(now_posX,now_posY,now_posZ,0)
-    if decision(now_posX,now_posY + 1,now_posZ):
-        mc.setBlock(now_posX,now_posY + 1,now_posZ,0)
+    mining(mc,now_posX,now_posY,now_posZ)
+
 now_posZ+=8
 #初期のＴ字部分の作成を終了
 
@@ -92,11 +88,8 @@ for i in range(4):
         now_posY+=y
         now_posZ+=z
         
-        if decision(now_posX,now_posY,now_posZ):
-            mc.setBlock(now_posX,now_posY,now_posZ,0)
-        if decision(now_posX,now_posY + 1,now_posZ):
-            mc.setBlock(now_posX,now_posY + 1,now_posZ,0)
-        time.sleep(1)
+        mining(mc,now_posX,now_posY,now_posZ)
+        time.sleep(0.1)
 
     mc.setBlock(now_posX,now_posY,now_posZ,50)#目印になるトーチを設置
     #掘った分戻る
@@ -111,12 +104,9 @@ for i in range(4):
         now_posY+=y
         now_posZ+=z
 
-        if decision(now_posX,now_posY,now_posZ):
-            mc.setBlock(now_posX,now_posY,now_posZ,0)
-        if decision(now_posX,now_posY + 1,now_posZ):
-            mc.setBlock(now_posX,now_posY + 1,now_posZ,0)
+        mining(mc,now_posX,now_posY,now_posZ)
 
-        time.sleep(1)
+        time.sleep(0.1)
 
 #掘った分進む
 now_posX+=4
@@ -167,11 +157,10 @@ def Direction_Determination2():
     elif(def_count2%14 == 13):
         def_count2+=1
         return(1,0,0)
-    
 
-for i in range(12):
-    mc.postToChat("test1")
+def L_shape_zone(mc,now_posX,now_posY,now_posZ):
     while True:
+        #0
         #L字部分
         x,y,z = Direction_Determination2()#進む方向を設定
 
@@ -180,11 +169,9 @@ for i in range(12):
             now_posY+=y
             now_posZ+=z
             
-            if decision(now_posX,now_posY,now_posZ):
-                mc.setBlock(now_posX,now_posY,now_posZ,0)
-            if decision(now_posX,now_posY + 1,now_posZ):
-                mc.setBlock(now_posX,now_posY + 1,now_posZ,0)
-            time.sleep(1)
+            mining(mc,now_posX,now_posY,now_posZ)
+
+            time.sleep(0.1)
 
         
         x,y,z = Direction_Determination2()#進む方向を設定
@@ -194,41 +181,38 @@ for i in range(12):
             now_posY+=y
             now_posZ+=z
             
-            if decision(now_posX,now_posY + 1,now_posZ):
+            if decision(mc,now_posX,now_posY + 1,now_posZ):
                 mc.setBlock(now_posX,now_posY + 1,now_posZ,0)
 
             #トーチが有ればL字部分を作り続ける
-            if not (50 == mc.getBlock(now_posX,now_posY,now_posZ)) and (j == 3):
+            if (50 == mc.getBlock(now_posX,now_posY,now_posZ)) and (j==3):
+                now_posX,now_posY,now_posZ = L_shape_zone(mc,now_posX,now_posY,now_posZ)
+            #トーチが無ければwhileループを抜ける
+            elif (50 != mc.getBlock(now_posX,now_posY,now_posZ)) and (j==3):
                 mc.setBlock(now_posX,now_posY,now_posZ,50)#目印になるトーチを設置
-                mc.postToChat("test")
                 break
-            elif (j==3) and (50 == mc.getBlock(now_posX,now_posY,now_posZ)):
-                pass
             else:
-                if decision(now_posX,now_posY,now_posZ):
+                if decision(mc,now_posX,now_posY,now_posZ):
                     mc.setBlock(now_posX,now_posY,now_posZ,0)
-            
-            time.sleep(1)
-        else:
-            continue
-        break
-    
-    #直線部分
-    x,y,z = Direction_Determination2()#進む方向を設定
-    while True:
-        now_posX+=x
-        now_posY+=y
-        now_posZ+=z
-        
-        #トーチが有ればL字部分を作り続ける
-        if (50 == mc.getBlock(now_posX,now_posY,now_posZ)):
-            break
-        else:
-            mc.setBlock(now_posX,now_posY,now_posZ,50)#目印になるトーチを設置
 
-        if decision(now_posX,now_posY,now_posZ):
-            mc.setBlock(now_posX,now_posY,now_posZ,0)
-        if decision(now_posX,now_posY + 1,now_posZ):
-            mc.setBlock(now_posX,now_posY + 1,now_posZ,0)
-        time.sleep(1)
+            time.sleep(0.1)
+        return now_posX,now_posY,now_posZ
+
+for _ in range(2):
+    for _ in range(4):
+        now_posX,now_posY,now_posZ = L_shape_zone(mc,now_posX, now_posY, now_posZ)
+        
+        #直線部分
+        x,y,z = Direction_Determination2()#進む方向を設定
+        while True:
+            now_posX+=x
+            now_posY+=y
+            now_posZ+=z
+            
+            #トーチが有ればL字部分の制作に移る
+            if (50 == mc.getBlock(now_posX,now_posY,now_posZ)):
+                break
+
+            mining(mc,now_posX,now_posY,now_posZ)
+            time.sleep(0.1)
         
